@@ -3,6 +3,7 @@
 RCLDAP=/usr/sbin/rcldap
 LOGFILESOURCE="/var/log/ldap"
 LOGFILETARGET="/var/log/ldap_"$(date +"%d%m%y_%H%M")
+MAILADDRESS="XXXXXXXXXXXXXXXXXX"
 
 test -x $RCLDAP || exit 1
 
@@ -21,8 +22,8 @@ then
     $RCLDAP start
     if [[ $? -eq 0 ]]
     then
-        echo "LDAP Server erfolgreich neu gestartet. Logfile nach ${LOGFILETARGET} gesichert." | mail -s "[ERROR] LDAP Server lief nicht" michael.schaarschmidt@urz.uni-halle.de     
+        echo "LDAP Server erfolgreich neu gestartet. Logfile nach ${LOGFILETARGET} gesichert." | mail -s "[ERROR] LDAP Server lief nicht" $MAILADDRESS   
     else
-        echo "LDAP Server erfolglos neu gestartet. Logfile nach ${LOGFILETARGET} gesichert." | mail -s "[ERROR] LDAP Server laeuft nicht" michael.schaarschmidt@urz.uni-halle.de     
+        echo "LDAP Server erfolglos neu gestartet. Logfile nach ${LOGFILETARGET} gesichert." | mail -s "[ERROR] LDAP Server laeuft nicht" $MAILADDRESS     
     fi
 fi
